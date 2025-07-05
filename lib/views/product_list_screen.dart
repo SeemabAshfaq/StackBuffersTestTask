@@ -16,8 +16,9 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
+            bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CustomAppBar(title: "Products"),
       body: Consumer<ProductViewModel>(
         builder: (context, provider, _) {
@@ -49,7 +50,7 @@ class ProductListPage extends StatelessWidget {
                         style: GoogleFonts.poppins(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w400,
-                          color: lightBlackColor2.withValues(alpha: 0.25),
+                          color:isDarkMode?whiteColor: lightBlackColor2.withValues(alpha: 0.25),
                         ),
                       ),
                     ),
@@ -122,94 +123,103 @@ class ProductListPage extends StatelessWidget {
   }
 
   Widget productScreenShimmer() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Column(
-        children: [
-          Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade100,
-            child: Container(
-              height: 45.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              margin: EdgeInsets.only(top: 20.h),
-            ),
-          ),
-          SizedBox(height: 12.h),
-          Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade100,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(height: 10.h, width: 100.w, color: Colors.white),
-            ),
-          ),
-          SizedBox(height: 20.h),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(bottom: index == 5 ? 40.h : 20.h),
-                  child: Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade100,
-                    child: Container(
-                      height: 120.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      padding: EdgeInsets.all(12.w),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 80.w,
-                            height: 80.w,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                          ),
-                          SizedBox(width: 12.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 12.h,
-                                  width: 100.w,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(height: 8.h),
-                                Container(
-                                  height: 10.h,
-                                  width: 60.w,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(height: 8.h),
-                                Container(
-                                  height: 14.h,
-                                  width: 80.w,
-                                  color: Colors.grey,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+    return Builder(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            children: [
+              Shimmer.fromColors(
+                baseColor: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
+                highlightColor: isDark ? Colors.grey.shade500 : Colors.grey.shade100,
+                child: Container(
+                  height: 45.h,
+                  decoration: BoxDecoration(
+                    color: isDark ? Colors.grey.shade800 : Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
-                );
-              },
-            ),
+                  margin: EdgeInsets.only(top: 20.h),
+                ),
+              ),
+              SizedBox(height: 12.h),
+              Shimmer.fromColors(
+                baseColor: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
+                highlightColor: isDark ? Colors.grey.shade500 : Colors.grey.shade100,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    height: 10.h,
+                    width: 100.w,
+                    color: isDark ? Colors.grey.shade800 : Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.h),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: index == 5 ? 40.h : 20.h),
+                      child: Shimmer.fromColors(
+                        baseColor: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
+                        highlightColor: isDark ? Colors.grey.shade500 : Colors.grey.shade100,
+                        child: Container(
+                          height: 120.h,
+                          decoration: BoxDecoration(
+                            color: isDark ? Colors.grey.shade800 : Colors.white,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          padding: EdgeInsets.all(12.w),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 80.w,
+                                height: 80.w,
+                                decoration: BoxDecoration(
+                                  color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
+                              ),
+                              SizedBox(width: 12.w),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 12.h,
+                                      width: 100.w,
+                                      color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                    ),
+                                    SizedBox(height: 8.h),
+                                    Container(
+                                      height: 10.h,
+                                      width: 60.w,
+                                      color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                    ),
+                                    SizedBox(height: 8.h),
+                                    Container(
+                                      height: 14.h,
+                                      width: 80.w,
+                                      color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

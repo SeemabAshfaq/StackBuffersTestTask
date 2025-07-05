@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../core/colors.dart';
 import '../viewmodels/splash_viewmodel.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 50.sp,
                   fontWeight: FontWeight.w400,
-                  color: blackColor,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
               Text(
@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: GoogleFonts.poppins(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w800,
-                  color: whiteColor,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
               Spacer(),
@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: GoogleFonts.poppins(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
-                  color: whiteColor,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
             ],

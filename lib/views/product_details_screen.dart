@@ -17,9 +17,9 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favProvider = Provider.of<FavouriteViewmodel>(context);
-
+          bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CustomAppBar(title: "Product Details", showBackIcon: true),
       body: product == null
           ? Center(
@@ -68,37 +68,47 @@ class ProductDetailScreen extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.w800,
-                                color: lightBlackColor2,
+                                color:isDarkMode ? whiteColor : blackColor,
                               ),
                             ),
                             GestureDetector(
                               onTap: () {
                                 favProvider.toggleFavorite(product!);
                               },
-                              child: SvgPicture.asset(
-                                favProvider.isFavorite(product!)
-                                    ? "assets/icons/heart.svg"
-                                    : "assets/icons/fav2.svg",
-                                width: 27.w,
-                                height: 22.h,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color:isDarkMode? Colors.grey.withValues(alpha:0.05) : whiteColor,
+borderRadius: BorderRadius.circular(5.r)
+                                ),
+                                child: Padding(
+                                 padding:  EdgeInsets.all(5.h),
+                                  child: SvgPicture.asset(
+                                    favProvider.isFavorite(product!)
+                                        ? "assets/icons/heart.svg"
+                                        : "assets/icons/fav2.svg",
+                                    width: 27.w,
+                                    height: 22.h,
+                                    
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(height: 8.h),
-                        productDetailRow("Name:   ", product!.title),
-                        productDetailRow("Price:   ", "\$${product!.price}"),
+                        productDetailRow("Name:   ", product!.title,context),
+                        productDetailRow("Price:   ", "\$${product!.price}",context),
 
                         SizedBox(height: 8.h),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Description :", style: labelStyle()),
+                            Text("Description :", style: labelStyle(context)),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 5.w),
                               child: Text(
                                 product!.description,
-                                style: valueStyle(),
+                                style: valueStyle(context),
                               ),
                             ),
                           ],
@@ -113,28 +123,28 @@ class ProductDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget productDetailRow(String label, String value) {
+  Widget productDetailRow(String label, String value,BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.h),
       child: Row(
         children: [
-          Text(label, style: labelStyle()),
-          Expanded(child: Text(value, style: valueStyle())),
+          Text(label, style: labelStyle(context)),
+          Expanded(child: Text(value, style: valueStyle(context))),
         ],
       ),
     );
   }
 
-  TextStyle labelStyle() => GoogleFonts.poppins(
+  TextStyle labelStyle(BuildContext context) => GoogleFonts.poppins(
     fontSize: 12.sp,
     fontWeight: FontWeight.w800,
-    color: lightBlackColor2,
+    color: Theme.of(context).brightness == Brightness.dark ? whiteColor : blackColor,
   );
 
-  TextStyle valueStyle() => GoogleFonts.poppins(
+  TextStyle valueStyle(BuildContext context) => GoogleFonts.poppins(
     fontSize: 10.sp,
     fontWeight: FontWeight.w400,
-    color: lightBlackColor2,
+    color: Theme.of(context).brightness == Brightness.dark ? whiteColor : blackColor,
   );
 
   Widget shimmerContainer({required double height}) {

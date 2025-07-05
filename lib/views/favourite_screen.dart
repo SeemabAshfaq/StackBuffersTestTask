@@ -14,9 +14,9 @@ class FavouritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favProvider = Provider.of<FavouriteViewmodel>(context, listen: false);
-
+bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CustomAppBar(title: "Favourites"),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -84,7 +84,7 @@ class FavouritesView extends StatelessWidget {
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: whiteColor,
+                            color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.withValues(alpha:0.08) : whiteColor,
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(5.r),
                               bottomRight: Radius.circular(5.r),
@@ -136,7 +136,7 @@ class FavouritesView extends StatelessWidget {
                                         style: GoogleFonts.poppins(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w800,
-                                          color: lightBlackColor2,
+                                          color: isDarkMode ? whiteColor : lightBlackColor2,
                                         ),
                                       ),
                                       SizedBox(height: 4),
@@ -145,7 +145,7 @@ class FavouritesView extends StatelessWidget {
                                         style: GoogleFonts.poppins(
                                           fontSize: 11.sp,
                                           fontWeight: FontWeight.w800,
-                                          color: lightBlackColor2,
+                                          color: isDarkMode ? whiteColor : lightBlackColor2,
                                         ),
                                       ),
                                       SizedBox(height: 4),
@@ -158,12 +158,22 @@ class FavouritesView extends StatelessWidget {
                                   onTap: () {
                                     provider.toggleFavorite(product);
                                   },
-                                  child: SvgPicture.asset(
-                                    provider.isFavorite(product)
-                                        ? "assets/icons/heart.svg"
-                                        : "assets/icons/fav2.svg",
-                                    width: 16.w,
-                                    height: 16.h,
+                                  child: Container(
+                                     decoration: BoxDecoration(
+                                  color: isDarkMode? Colors.grey.withValues(alpha:0.05) : whiteColor,
+borderRadius: BorderRadius.circular(5.r)
+                                ),
+                                    child: Padding(
+                                     padding:  EdgeInsets.all(5.h),
+                                      child: SvgPicture.asset(
+                                        provider.isFavorite(product)
+                                            ? "assets/icons/heart.svg"
+                                            : "assets/icons/fav2.svg",
+                                        width: 16.w,
+                                        height: 16.h,
+                                       
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],

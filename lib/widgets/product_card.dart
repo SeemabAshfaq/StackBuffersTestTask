@@ -16,8 +16,9 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favProvider = Provider.of<FavouriteViewmodel>(context);
+            bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
     return Card(
-      color: whiteColor,
+      color: Theme.of(context).colorScheme.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(5.r),
@@ -43,13 +44,18 @@ class ProductCard extends StatelessWidget {
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
                     return Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
+                      baseColor: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade700
+                          : Colors.grey.shade300,
+                      highlightColor: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade500
+                          : Colors.grey.shade100,
                       child: Container(
                         height: 172.77.h,
                         width: double.infinity,
-                        color: Colors.grey.shade200,
-                        //child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade800
+                            : Colors.grey.shade200,
                       ),
                     );
                   },
@@ -74,12 +80,21 @@ class ProductCard extends StatelessWidget {
                       onTap: () {
                         favProvider.toggleFavorite(product);
                       },
-                      child: SvgPicture.asset(
-                        favProvider.isFavorite(product)
-                            ? "assets/icons/heart.svg"
-                            : "assets/icons/fav2.svg",
-                        width: 27.w,
-                        height: 22.h,
+                      child: Container(
+                         decoration: BoxDecoration(
+                                  color: isDarkMode? Colors.grey.withValues(alpha:0.05) : whiteColor,
+borderRadius: BorderRadius.circular(5.r)
+                                ),
+                        child: Padding(
+                          padding:  EdgeInsets.all(5.h),
+                          child: SvgPicture.asset(
+                            favProvider.isFavorite(product)
+                                ? "assets/icons/heart.svg"
+                                : "assets/icons/fav2.svg",
+                            width: 27.w,
+                            height: 22.h,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -103,7 +118,7 @@ class ProductCard extends StatelessWidget {
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w800,
                           fontSize: 14.sp,
-                          color: lightBlackColor2,
+                          color: isDarkMode ? whiteColor : blackColor,
                         ),
                       ),
                     ),
@@ -113,7 +128,7 @@ class ProductCard extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w800,
                         fontSize: 18.sp,
-                        color: lightBlackColor2,
+                        color: isDarkMode ? Colors.white : Colors.black,
                       ),
                     ),
                   ],

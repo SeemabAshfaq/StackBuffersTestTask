@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stack_buffer_test_task/core/colors.dart';
 
 class ReusableButton extends StatelessWidget {
@@ -12,7 +13,7 @@ class ReusableButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onPressed,
-    this.backgroundColor = Colors.blue,
+    this.backgroundColor =mainGreenColor,
     this.textStyle,
     this.borderRadius = 8.0,
   });
@@ -20,7 +21,7 @@ class ReusableButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: 48.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
@@ -28,15 +29,11 @@ class ReusableButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style:
-              textStyle ??
-              Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(color: whiteColor),
-        ),
+        onPressed:  onPressed,
+        child:  Text(
+                text,
+                style: textStyle ?? Theme.of(context).textTheme.labelLarge?.copyWith(color: whiteColor),
+              ),
       ),
     );
   }

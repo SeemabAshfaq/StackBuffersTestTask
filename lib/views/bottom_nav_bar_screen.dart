@@ -61,6 +61,7 @@ class BottomNavBar extends StatelessWidget {
               ),
             ),
           ),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         );
       },
     );
