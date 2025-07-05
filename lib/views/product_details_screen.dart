@@ -16,7 +16,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favProvider = Provider.of<FavoriteProvider>(context);
+    final favProvider = Provider.of<FavouriteViewmodel>(context);
 
     return Scaffold(
       backgroundColor: whiteColor,
@@ -37,18 +37,21 @@ class ProductDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Hero Image
-                  SizedBox(
-                    height: 209.h,
-                    width: double.infinity,
-                    child: Image.network(
-                      product!.imageUrl,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return shimmerContainer(height: 209.h);
-                      },
-                      errorBuilder: (context, error, stackTrace) =>
-                          errorImageContainer(height: 209.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.w),
+                    child: SizedBox(
+                      // height: 209.h,
+                      width: double.infinity,
+                      child: Image.network(
+                        product!.imageUrl,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return shimmerContainer(height: 209.h);
+                        },
+                        errorBuilder: (context, error, stackTrace) =>
+                            errorImageContainer(height: 209.h),
+                      ),
                     ),
                   ),
                   SizedBox(height: 16.h),
@@ -60,11 +63,14 @@ class ProductDetailScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Product Details",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w800,
-                                    color: lightBlackColor2)),
+                            Text(
+                              "Product Details",
+                              style: GoogleFonts.poppins(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w800,
+                                color: lightBlackColor2,
+                              ),
+                            ),
                             GestureDetector(
                               onTap: () {
                                 favProvider.toggleFavorite(product!);
@@ -83,23 +89,21 @@ class ProductDetailScreen extends StatelessWidget {
                         productDetailRow("Name:   ", product!.title),
                         productDetailRow("Price:   ", "\$${product!.price}"),
 
-                        
-                      
                         SizedBox(height: 8.h),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Description :",
-                                style: labelStyle()),
+                            Text("Description :", style: labelStyle()),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 5.w),
-                              child: Text(product!.description,
-                                  style: valueStyle()),
+                              child: Text(
+                                product!.description,
+                                style: valueStyle(),
+                              ),
                             ),
                           ],
                         ),
                         SizedBox(height: 8.h),
-                    
                       ],
                     ),
                   ),
@@ -122,10 +126,16 @@ class ProductDetailScreen extends StatelessWidget {
   }
 
   TextStyle labelStyle() => GoogleFonts.poppins(
-      fontSize: 12.sp, fontWeight: FontWeight.w800, color: lightBlackColor2);
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w800,
+    color: lightBlackColor2,
+  );
 
   TextStyle valueStyle() => GoogleFonts.poppins(
-      fontSize: 10.sp, fontWeight: FontWeight.w400, color: lightBlackColor2);
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w400,
+    color: lightBlackColor2,
+  );
 
   Widget shimmerContainer({required double height}) {
     return Shimmer.fromColors(
@@ -147,6 +157,4 @@ class ProductDetailScreen extends StatelessWidget {
       child: Icon(Icons.broken_image, size: 30.sp, color: Colors.grey),
     );
   }
-
-
 }

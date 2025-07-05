@@ -5,31 +5,32 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:stack_buffer_test_task/core/colors.dart';
 import 'package:stack_buffer_test_task/viewmodels/bottom_nav_bar_viewmodel.dart';
+import 'package:stack_buffer_test_task/views/favourite_screen.dart';
 import 'package:stack_buffer_test_task/views/product_list_screen.dart';
+import 'package:stack_buffer_test_task/views/setting_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   BottomNavBar({super.key});
 
-  final List<Widget> _pages = [
-    const ProductListPage(),
-    const SizedBox(),
-    const SizedBox(),
+  final List<Widget Function()> _pageBuilders = [
+    () => const ProductListPage(),
+    () => const FavouritesView(),
+    () => const SettingScreen(),
   ];
 
   final List<String> _labels = ["Products", "Favourites", "Settings"];
   final List<String> _icons = [
     "assets/icons/products.svg",
     "assets/icons/fav.svg",
-    "assets/icons/fav.svg",
+    "assets/icons/settings.svg",
   ];
-
 
   @override
   Widget build(BuildContext context) {
     return Consumer<BottomNavProvider>(
       builder: (context, controller, _) {
         return Scaffold(
-          body: _pages[controller.currentIndex],
+          body: _pageBuilders[controller.currentIndex](),
           bottomNavigationBar: BottomAppBar(
             height: 75.h,
             padding: EdgeInsets.zero,
@@ -38,7 +39,7 @@ class BottomNavBar extends StatelessWidget {
             child: Container(
               height: 75.h,
               decoration: BoxDecoration(
-                color: blackColor,
+                color: const Color.fromARGB(255, 10, 92, 70),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15.r),
                   topRight: Radius.circular(15.r),
@@ -49,7 +50,13 @@ class BottomNavBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
                   _icons.length,
-                  (index) => buildNavItem(context, controller, index, _icons[index], _labels[index]),
+                  (index) => buildNavItem(
+                    context,
+                    controller,
+                    index,
+                    _icons[index],
+                    _labels[index],
+                  ),
                 ),
               ),
             ),
@@ -59,7 +66,13 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget buildNavItem(BuildContext context, BottomNavProvider controller, int index, String iconPath, String label) {
+  Widget buildNavItem(
+    BuildContext context,
+    BottomNavProvider controller,
+    int index,
+    String iconPath,
+    String label,
+  ) {
     final isSelected = controller.currentIndex == index;
 
     return GestureDetector(
@@ -74,7 +87,9 @@ class BottomNavBar extends StatelessWidget {
             topLeft: index == 0 ? Radius.circular(15.r) : Radius.zero,
             topRight: index == 3 ? Radius.circular(15.r) : Radius.zero,
           ),
-          color: isSelected ? lightBlackColor.withAlpha(13) : Colors.transparent,
+          color: isSelected
+              ? lightBlackColor.withAlpha(13)
+              : Colors.transparent,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -83,16 +98,17 @@ class BottomNavBar extends StatelessWidget {
               iconPath,
               width: 21.w,
               height: 21.h,
+              colorFilter: ColorFilter.mode(whiteColor, BlendMode.srcIn),
             ),
             SizedBox(height: 8.h),
             Text(
-             label,
+              label,
               style: GoogleFonts.poppins(
-                fontSize: 10.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w400,
                 color: whiteColor,
               ),
-            )
+            ),
           ],
         ),
       ),

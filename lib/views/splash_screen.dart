@@ -27,36 +27,46 @@ class _SplashScreenState extends State<SplashScreen> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/splash.png"), fit: BoxFit.fill),
+            image: AssetImage("assets/images/splash.png"),
+            fit: BoxFit.fill,
+          ),
         ),
         child: Padding(
           padding: EdgeInsets.only(
-              top: 50.h, bottom: 120.h, left: 60.w, right: 60.w),
+            top: 50.h,
+            bottom: 120.h,
+            left: 60.w,
+            right: 60.w,
+          ),
           child: Column(
             children: [
               Text(
                 "Stack Buffers",
                 style: GoogleFonts.playfairDisplay(
-                    fontSize: 50.sp,
-                    fontWeight: FontWeight.w400,
-                    color: blackColor),
-              ),
-              Text("Seemab Ashfaq",
-                  style: GoogleFonts.poppins(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w800,
-                      color: whiteColor)),
-              Spacer(),
-              SizedBox(
-                height: 15.h,
+                  fontSize: 50.sp,
+                  fontWeight: FontWeight.w400,
+                  color: blackColor,
+                ),
               ),
               Text(
-                  "Welcome to Stack Buffers, a platform where you can find the best IT Services and Sollutions",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                      color: whiteColor)),
+                "Seemab Ashfaq",
+                style: GoogleFonts.poppins(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w800,
+                  color: whiteColor,
+                ),
+              ),
+              Spacer(),
+              SizedBox(height: 15.h),
+              Text(
+                "Welcome to Stack Buffers, a platform where you can find the best IT Services and Sollutions",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  color: whiteColor,
+                ),
+              ),
             ],
           ),
         ),

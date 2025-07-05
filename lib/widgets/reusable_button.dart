@@ -28,11 +28,15 @@ class ReusableButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        onPressed:  onPressed,
-        child:  Text(
-                text,
-                style: textStyle ?? Theme.of(context).textTheme.labelLarge?.copyWith(color: whiteColor),
-              ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style:
+              textStyle ??
+              Theme.of(
+                context,
+              ).textTheme.labelLarge?.copyWith(color: whiteColor),
+        ),
       ),
     );
   }

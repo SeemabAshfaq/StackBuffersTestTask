@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final favProvider = Provider.of<FavoriteProvider>(context);
+    final favProvider = Provider.of<FavouriteViewmodel>(context);
     return Card(
       color: whiteColor,
       shape: RoundedRectangleBorder(
@@ -36,53 +36,56 @@ class ProductCard extends StatelessWidget {
             child: Stack(
               children: [
                 Image.network(
-  product.imageUrl,
-  height: 172.77.h,
-  width: double.infinity,
-  fit: BoxFit.cover,
-  loadingBuilder: (context, child, loadingProgress) {
-    if (loadingProgress == null) return child;
-    return Shimmer.fromColors(
-          baseColor: Colors.grey.shade300,
-          highlightColor: Colors.grey.shade100,
-      child: Container(
-        height: 172.77.h,
-        width: double.infinity,
-        color: Colors.grey.shade200,
-        //child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
-      ),
-    );
-  },
-  errorBuilder: (context, error, stackTrace) {
-    return Container(
-      width: double.infinity,
-      height: 172.77.h,
-      color: Colors.grey.shade200,
-      child: Icon(Icons.broken_image, size: 30.sp, color: Colors.grey),
-    );
-  },
-),
-            Positioned(
-              right:1 ,
-              child:  Padding(
-                padding:  EdgeInsets.only(top: 20.h),
-                child: GestureDetector(
-                                onTap: () {
-                                  favProvider.toggleFavorite(product);
-                                },
-                                child: SvgPicture.asset(
-                                  favProvider.isFavorite(product!)
-                                      ? "assets/icons/heart.svg"
-                                      : "assets/icons/fav2.svg",
-                                  width: 27.w,
-                                  height: 22.h,
-                                ),
-                              ),
-              ),)
-            
+                  product.imageUrl,
+                  height: 172.77.h,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: Container(
+                        height: 172.77.h,
+                        width: double.infinity,
+                        color: Colors.grey.shade200,
+                        //child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: double.infinity,
+                      height: 172.77.h,
+                      color: Colors.grey.shade200,
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 30.sp,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
+                ),
+                Positioned(
+                  right: 1,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20.h),
+                    child: GestureDetector(
+                      onTap: () {
+                        favProvider.toggleFavorite(product);
+                      },
+                      child: SvgPicture.asset(
+                        favProvider.isFavorite(product)
+                            ? "assets/icons/heart.svg"
+                            : "assets/icons/fav2.svg",
+                        width: 27.w,
+                        height: 22.h,
+                      ),
+                    ),
+                  ),
+                ),
               ],
-            )
-
+            ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 25.h),
@@ -104,7 +107,7 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20.w,),
+                    SizedBox(width: 20.w),
                     Text(
                       "\$${product.price}",
                       style: GoogleFonts.poppins(
@@ -115,8 +118,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-
-             ],
+              ],
             ),
           ),
         ],

@@ -9,7 +9,7 @@ class SplashViewModel {
     await Future.delayed(const Duration(seconds: 3));
     if (!context.mounted) return;
     if (isLoggedIn) {
-      Navigator.of(context).pushReplacementNamed('/productList');
+      Navigator.of(context).pushReplacementNamed('/navbar');
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }

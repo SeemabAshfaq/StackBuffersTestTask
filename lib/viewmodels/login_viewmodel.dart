@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stack_buffer_test_task/core/colors.dart';
 import '../core/snackbar_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -31,7 +30,7 @@ class LoginViewModel extends ChangeNotifier {
       );
     } catch (e) {
       SnackbarService.showSnackbar(
-         title: "Error",
+        title: "Error",
         message: 'An error occurred',
         icon: Icons.error_outline,
       );

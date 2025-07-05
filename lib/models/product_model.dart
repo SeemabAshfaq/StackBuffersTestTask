@@ -3,12 +3,12 @@ class ProductModel {
   final String title;
   final double price;
   final String imageUrl;
-final String description;
+  final String description;
 
   ProductModel({
     required this.id,
     required this.title,
-    required this.price, 
+    required this.price,
     required this.description,
     required this.imageUrl,
   });
@@ -20,7 +20,6 @@ final String description;
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       imageUrl: json['image'] ?? 'Unknown',
       description: json['description'] ?? 'No description',
-    
     );
   }
 

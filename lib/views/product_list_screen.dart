@@ -10,12 +10,12 @@ import 'package:stack_buffer_test_task/widgets/custom_app_bar.dart';
 import 'package:stack_buffer_test_task/widgets/custom_search_field.dart';
 import 'package:stack_buffer_test_task/widgets/product_card.dart';
 
-
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: const CustomAppBar(title: "Products"),
@@ -23,72 +23,97 @@ class ProductListPage extends StatelessWidget {
         builder: (context, provider, _) {
           if (provider.isLoading) {
             return productScreenShimmer();
-          } else if (provider.filteredList.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "assets/icons/products.svg",
-                    colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-                    height: 40.h,
-                    width: 40.w,
-                  ),
-                  SizedBox(height: 16.h),
-                  Text(
-                    'No Products found',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            );
           }
+          // Always show search bar, even if no products found
+          final showNoProducts = provider.filteredList.isEmpty;
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Column(
-              children: [
-                CustomSearchField(
-                  onChanged: (value) => provider.setSearchQuery(value),
-                ),
-                SizedBox(height: 12.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "${provider.filteredList.length} results found",
-                      style: GoogleFonts.poppins(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: lightBlackColor2.withOpacity(0.25),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await provider.loadProducts();
+              },
+              child: ListView(
+                controller: scrollController,
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  CustomSearchField(
+                    onChanged: (value) => provider.setSearchQuery(value),
+                  ),
+                  SizedBox(height: 12.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "${provider.filteredList.length} results found",
+                        style: GoogleFonts.poppins(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w400,
+                          color: lightBlackColor2.withValues(alpha: 0.25),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 20.h),
-                Expanded(
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: provider.filteredList.length,
-                    itemBuilder: (context, index) {
-                      final product = provider.filteredList[index];
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          bottom: index == provider.filteredList.length - 1 ? 40.h : 20,
-                        ),
-                        child: GestureDetector(
-                          onTap: () => provider.fetchProductDetails(context, product.id),
-                          child: ProductCard(product: product),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                  SizedBox(height: 20.h),
+                  if (showNoProducts)
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/products.svg",
+                            colorFilter: const ColorFilter.mode(
+                              Colors.grey,
+                              BlendMode.srcIn,
+                            ),
+                            height: 40.h,
+                            width: 40.w,
+                          ),
+                          SizedBox(height: 16.h),
+                          Text(
+                            'No Products found',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  else
+                    ...List.generate(
+                      provider.visibleCount < provider.filteredList.length
+                          ? provider.visibleCount
+                          : provider.filteredList.length,
+                      (index) {
+                        final product = provider.filteredList[index];
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            bottom: index == provider.filteredList.length - 1
+                                ? 40.h
+                                : 20,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              provider.fetchProductDetails(context, product.id);
+                            },
+                            child: ProductCard(product: product),
+                          ),
+                        );
+                      },
+                    ),
+                  if (!showNoProducts &&
+                      provider.visibleCount < provider.filteredList.length)
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.h),
+                      child: Center(
+                        child: CircularProgressIndicator(color: mainGreenColor),
+                      ),
+                    ),
+                ],
+              ),
             ),
           );
         },
@@ -119,11 +144,7 @@ class ProductListPage extends StatelessWidget {
             highlightColor: Colors.grey.shade100,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                height: 10.h,
-                width: 100.w,
-                color: Colors.white,
-              ),
+              child: Container(height: 10.h, width: 100.w, color: Colors.white),
             ),
           ),
           SizedBox(height: 20.h),
@@ -159,14 +180,26 @@ class ProductListPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(height: 12.h, width: 100.w, color: Colors.grey),
+                                Container(
+                                  height: 12.h,
+                                  width: 100.w,
+                                  color: Colors.grey,
+                                ),
                                 SizedBox(height: 8.h),
-                                Container(height: 10.h, width: 60.w, color: Colors.grey),
+                                Container(
+                                  height: 10.h,
+                                  width: 60.w,
+                                  color: Colors.grey,
+                                ),
                                 SizedBox(height: 8.h),
-                                Container(height: 14.h, width: 80.w, color: Colors.grey),
+                                Container(
+                                  height: 14.h,
+                                  width: 80.w,
+                                  color: Colors.grey,
+                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
