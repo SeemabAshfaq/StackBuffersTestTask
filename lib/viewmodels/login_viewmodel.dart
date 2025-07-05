@@ -21,7 +21,7 @@ class LoginViewModel extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
       if (context.mounted) {
-        Navigator.of(context).pushReplacementNamed('/productList');
+        Navigator.of(context).pushReplacementNamed('/navbar');
       }
     } on FirebaseAuthException catch (e) {
       SnackbarService.showSnackbar(
@@ -44,7 +44,7 @@ class LoginViewModel extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     if (isLoggedIn && context.mounted) {
-      Navigator.of(context).pushReplacementNamed('/productList');
+      Navigator.of(context).pushReplacementNamed('/navbar');
     }
   }
 
