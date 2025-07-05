@@ -13,11 +13,11 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (_) => LoginViewModel(),
       child: Scaffold(
-       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                             style: GoogleFonts.playfairDisplay(
                               fontSize: 36.sp,
                               fontWeight: FontWeight.bold,
-                              color: isDarkMode?whiteColor:blackColor,
+                              color: isDarkMode ? whiteColor : blackColor,
                             ),
                           ),
                           SizedBox(height: 32.h),
@@ -71,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                               ? ReusableButton(
                                   text: 'Login',
 
-                                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                 
                                   textStyle: GoogleFonts.poppins(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w600,

@@ -16,7 +16,7 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-            bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CustomAppBar(title: "Products"),
@@ -50,7 +50,9 @@ class ProductListPage extends StatelessWidget {
                         style: GoogleFonts.poppins(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w400,
-                          color:isDarkMode?whiteColor: lightBlackColor2.withValues(alpha: 0.25),
+                          color: isDarkMode
+                              ? whiteColor
+                              : lightBlackColor2.withValues(alpha: 0.25),
                         ),
                       ),
                     ),
@@ -132,7 +134,9 @@ class ProductListPage extends StatelessWidget {
             children: [
               Shimmer.fromColors(
                 baseColor: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
-                highlightColor: isDark ? Colors.grey.shade500 : Colors.grey.shade100,
+                highlightColor: isDark
+                    ? Colors.grey.shade500
+                    : Colors.grey.shade100,
                 child: Container(
                   height: 45.h,
                   decoration: BoxDecoration(
@@ -145,7 +149,9 @@ class ProductListPage extends StatelessWidget {
               SizedBox(height: 12.h),
               Shimmer.fromColors(
                 baseColor: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
-                highlightColor: isDark ? Colors.grey.shade500 : Colors.grey.shade100,
+                highlightColor: isDark
+                    ? Colors.grey.shade500
+                    : Colors.grey.shade100,
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
@@ -161,10 +167,16 @@ class ProductListPage extends StatelessWidget {
                   itemCount: 6,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: index == 5 ? 40.h : 20.h),
+                      padding: EdgeInsets.only(
+                        bottom: index == 5 ? 40.h : 20.h,
+                      ),
                       child: Shimmer.fromColors(
-                        baseColor: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
-                        highlightColor: isDark ? Colors.grey.shade500 : Colors.grey.shade100,
+                        baseColor: isDark
+                            ? Colors.grey.shade700
+                            : Colors.grey.shade300,
+                        highlightColor: isDark
+                            ? Colors.grey.shade500
+                            : Colors.grey.shade100,
                         child: Container(
                           height: 120.h,
                           decoration: BoxDecoration(
@@ -178,7 +190,9 @@ class ProductListPage extends StatelessWidget {
                                 width: 80.w,
                                 height: 80.w,
                                 decoration: BoxDecoration(
-                                  color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                  color: isDark
+                                      ? Colors.grey.shade700
+                                      : Colors.grey,
                                   borderRadius: BorderRadius.circular(8.r),
                                 ),
                               ),
@@ -191,19 +205,25 @@ class ProductListPage extends StatelessWidget {
                                     Container(
                                       height: 12.h,
                                       width: 100.w,
-                                      color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                      color: isDark
+                                          ? Colors.grey.shade700
+                                          : Colors.grey,
                                     ),
                                     SizedBox(height: 8.h),
                                     Container(
                                       height: 10.h,
                                       width: 60.w,
-                                      color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                      color: isDark
+                                          ? Colors.grey.shade700
+                                          : Colors.grey,
                                     ),
                                     SizedBox(height: 8.h),
                                     Container(
                                       height: 14.h,
                                       width: 80.w,
-                                      color: isDark ? Colors.grey.shade700 : Colors.grey,
+                                      color: isDark
+                                          ? Colors.grey.shade700
+                                          : Colors.grey,
                                     ),
                                   ],
                                 ),

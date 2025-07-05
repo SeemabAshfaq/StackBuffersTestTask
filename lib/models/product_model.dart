@@ -18,7 +18,7 @@ class ProductModel {
       id: json['id'] ?? 0,
       title: json['title'] ?? 'No title',
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
-      imageUrl: json['image'] ?? 'Unknown',
+      imageUrl: json['image'] ?? '',
       description: json['description'] ?? 'No description',
     );
   }

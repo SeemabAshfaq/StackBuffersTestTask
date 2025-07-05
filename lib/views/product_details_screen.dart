@@ -17,7 +17,7 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favProvider = Provider.of<FavouriteViewmodel>(context);
-          bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CustomAppBar(title: "Product Details", showBackIcon: true),
@@ -68,7 +68,7 @@ class ProductDetailScreen extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.w800,
-                                color:isDarkMode ? whiteColor : blackColor,
+                                color: isDarkMode ? whiteColor : blackColor,
                               ),
                             ),
                             GestureDetector(
@@ -77,18 +77,19 @@ class ProductDetailScreen extends StatelessWidget {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color:isDarkMode? Colors.grey.withValues(alpha:0.05) : whiteColor,
-borderRadius: BorderRadius.circular(5.r)
+                                  color: isDarkMode
+                                      ? Colors.grey.withValues(alpha: 0.5)
+                                      : whiteColor,
+                                  borderRadius: BorderRadius.circular(5.r),
                                 ),
                                 child: Padding(
-                                 padding:  EdgeInsets.all(5.h),
+                                  padding: EdgeInsets.all(5.h),
                                   child: SvgPicture.asset(
                                     favProvider.isFavorite(product!)
                                         ? "assets/icons/heart.svg"
                                         : "assets/icons/fav2.svg",
                                     width: 27.w,
                                     height: 22.h,
-                                    
                                   ),
                                 ),
                               ),
@@ -96,8 +97,12 @@ borderRadius: BorderRadius.circular(5.r)
                           ],
                         ),
                         SizedBox(height: 8.h),
-                        productDetailRow("Name:   ", product!.title,context),
-                        productDetailRow("Price:   ", "\$${product!.price}",context),
+                        productDetailRow("Name:   ", product!.title, context),
+                        productDetailRow(
+                          "Price:   ",
+                          "\$${product!.price}",
+                          context,
+                        ),
 
                         SizedBox(height: 8.h),
                         Column(
@@ -123,7 +128,7 @@ borderRadius: BorderRadius.circular(5.r)
     );
   }
 
-  Widget productDetailRow(String label, String value,BuildContext context) {
+  Widget productDetailRow(String label, String value, BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.h),
       child: Row(
@@ -138,13 +143,17 @@ borderRadius: BorderRadius.circular(5.r)
   TextStyle labelStyle(BuildContext context) => GoogleFonts.poppins(
     fontSize: 12.sp,
     fontWeight: FontWeight.w800,
-    color: Theme.of(context).brightness == Brightness.dark ? whiteColor : blackColor,
+    color: Theme.of(context).brightness == Brightness.dark
+        ? whiteColor
+        : blackColor,
   );
 
   TextStyle valueStyle(BuildContext context) => GoogleFonts.poppins(
     fontSize: 10.sp,
     fontWeight: FontWeight.w400,
-    color: Theme.of(context).brightness == Brightness.dark ? whiteColor : blackColor,
+    color: Theme.of(context).brightness == Brightness.dark
+        ? whiteColor
+        : blackColor,
   );
 
   Widget shimmerContainer({required double height}) {

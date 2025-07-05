@@ -16,7 +16,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favProvider = Provider.of<FavouriteViewmodel>(context);
-            bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Card(
       color: Theme.of(context).colorScheme.background,
       shape: RoundedRectangleBorder(
@@ -47,7 +47,8 @@ class ProductCard extends StatelessWidget {
                       baseColor: Theme.of(context).brightness == Brightness.dark
                           ? Colors.grey.shade700
                           : Colors.grey.shade300,
-                      highlightColor: Theme.of(context).brightness == Brightness.dark
+                      highlightColor:
+                          Theme.of(context).brightness == Brightness.dark
                           ? Colors.grey.shade500
                           : Colors.grey.shade100,
                       child: Container(
@@ -81,12 +82,14 @@ class ProductCard extends StatelessWidget {
                         favProvider.toggleFavorite(product);
                       },
                       child: Container(
-                         decoration: BoxDecoration(
-                                  color: isDarkMode? Colors.grey.withValues(alpha:0.05) : whiteColor,
-borderRadius: BorderRadius.circular(5.r)
-                                ),
+                        decoration: BoxDecoration(
+                          color: isDarkMode
+                              ? Colors.grey.withValues(alpha: 0.5)
+                              : whiteColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
                         child: Padding(
-                          padding:  EdgeInsets.all(5.h),
+                          padding: EdgeInsets.all(5.h),
                           child: SvgPicture.asset(
                             favProvider.isFavorite(product)
                                 ? "assets/icons/heart.svg"

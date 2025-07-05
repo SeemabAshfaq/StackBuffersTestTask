@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../core/colors.dart';
 import '../viewmodels/splash_viewmodel.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 50.sp,
                   fontWeight: FontWeight.w400,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: blackColor,
                 ),
               ),
               Text(
@@ -53,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: GoogleFonts.poppins(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w800,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: whiteColor,
                 ),
               ),
               Spacer(),
@@ -64,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: GoogleFonts.poppins(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: whiteColor,
                 ),
               ),
             ],

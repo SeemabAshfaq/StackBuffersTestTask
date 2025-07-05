@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:stack_buffer_test_task/core/colors.dart';
 import 'package:stack_buffer_test_task/viewmodels/setting_viewmodel.dart';
-import 'package:stack_buffer_test_task/viewmodels/theme_provider.dart';
+import 'package:stack_buffer_test_task/viewmodels/theme_viewmodel.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/reusable_button.dart';
 
@@ -12,7 +13,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<SettingViewModel>(context, listen: false);
-    
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CustomAppBar(title: 'Settings'),
@@ -22,7 +23,7 @@ class SettingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 32),
-            Text('Theme', style: Theme.of(context).textTheme.titleMedium),
+            Text('Theme', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -32,7 +33,8 @@ class SettingScreen extends StatelessWidget {
                   builder: (context, themeProvider, _) {
                     return AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
-                      transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+                      transitionBuilder: (child, animation) =>
+                          ScaleTransition(scale: animation, child: child),
                       child: Switch(
                         key: ValueKey(themeProvider.isDarkMode),
                         value: themeProvider.isDarkMode,
@@ -44,9 +46,9 @@ class SettingScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 32),
-            Text('Account', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 16),
+            SizedBox(height: 32.h),
+            Text('Account', style: Theme.of(context).textTheme.titleLarge),
+            SizedBox(height: 16.h),
             ReusableButton(
               backgroundColor: mainGreenColor,
               text: 'Logout',

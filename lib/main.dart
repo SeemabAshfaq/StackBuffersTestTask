@@ -10,7 +10,7 @@ import 'package:stack_buffer_test_task/viewmodels/bottom_nav_bar_viewmodel.dart'
 import 'package:stack_buffer_test_task/viewmodels/favourite_viewmodel.dart';
 import 'package:stack_buffer_test_task/viewmodels/product_viewmodel.dart';
 import 'package:stack_buffer_test_task/viewmodels/setting_viewmodel.dart';
-import 'package:stack_buffer_test_task/viewmodels/theme_provider.dart';
+import 'package:stack_buffer_test_task/viewmodels/theme_viewmodel.dart';
 import 'package:stack_buffer_test_task/views/bottom_nav_bar_screen.dart';
 import 'package:stack_buffer_test_task/views/product_details_screen.dart';
 import 'package:stack_buffer_test_task/views/splash_screen.dart';

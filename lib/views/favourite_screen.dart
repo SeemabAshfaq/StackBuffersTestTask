@@ -14,7 +14,7 @@ class FavouritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favProvider = Provider.of<FavouriteViewmodel>(context, listen: false);
-bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const CustomAppBar(title: "Favourites"),
@@ -84,7 +84,10 @@ bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.withValues(alpha:0.08) : whiteColor,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.withValues(alpha: 0.08)
+                                : whiteColor,
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(5.r),
                               bottomRight: Radius.circular(5.r),
@@ -136,7 +139,9 @@ bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
                                         style: GoogleFonts.poppins(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w800,
-                                          color: isDarkMode ? whiteColor : lightBlackColor2,
+                                          color: isDarkMode
+                                              ? whiteColor
+                                              : lightBlackColor2,
                                         ),
                                       ),
                                       SizedBox(height: 4),
@@ -145,7 +150,9 @@ bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
                                         style: GoogleFonts.poppins(
                                           fontSize: 11.sp,
                                           fontWeight: FontWeight.w800,
-                                          color: isDarkMode ? whiteColor : lightBlackColor2,
+                                          color: isDarkMode
+                                              ? whiteColor
+                                              : lightBlackColor2,
                                         ),
                                       ),
                                       SizedBox(height: 4),
@@ -159,19 +166,20 @@ bool isDarkMode=Theme.of(context).brightness == Brightness.dark;
                                     provider.toggleFavorite(product);
                                   },
                                   child: Container(
-                                     decoration: BoxDecoration(
-                                  color: isDarkMode? Colors.grey.withValues(alpha:0.05) : whiteColor,
-borderRadius: BorderRadius.circular(5.r)
-                                ),
+                                    decoration: BoxDecoration(
+                                      color: isDarkMode
+                                          ? Colors.grey.withValues(alpha: 0.5)
+                                          : whiteColor,
+                                      borderRadius: BorderRadius.circular(5.r),
+                                    ),
                                     child: Padding(
-                                     padding:  EdgeInsets.all(5.h),
+                                      padding: EdgeInsets.all(5.h),
                                       child: SvgPicture.asset(
                                         provider.isFavorite(product)
                                             ? "assets/icons/heart.svg"
                                             : "assets/icons/fav2.svg",
                                         width: 16.w,
                                         height: 16.h,
-                                       
                                       ),
                                     ),
                                   ),
